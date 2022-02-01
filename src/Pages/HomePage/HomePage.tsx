@@ -8,11 +8,13 @@ import { HTTPMethod } from '../../Constants/HTTPMethod'
 
 export const HomePage: React.FC = () => {
   const { sendRequest } = useRequest()
+  const [personItems, setPersonItems] = React.useState<PersonInfo[]>([])
 
   React.useEffect(() => {
     const getSideBarItems = async () => {
       if (!process.env.REACT_APP_API_URL) throw new Error('REACT_APP_API_URL needs to be provided as a environment variable')
-      const data = await sendRequest<PersonInfo>({ url: process.env.REACT_APP_API_URL, method: HTTPMethod.Get })
+      const data = await sendRequest<PersonInfo[]>({ url: process.env.REACT_APP_API_URL, method: HTTPMethod.Get })
+      setPersonItems(data)
       console.log(data)
     }
 
@@ -21,7 +23,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      <SideBar className="w-96 bg-red-400 h-full"/>
+      <SideBar className="w-96 bg-red-400 h-full" personItems={personItems}/>
       <section className="w-full text-center">
         <PageHeading title="Main"/>
         <p>To display clicked event</p>
