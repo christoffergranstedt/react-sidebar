@@ -1,16 +1,19 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
 import { HomePage } from './Pages/HomePage/HomePage'
+import { Header } from './Components/Header/Header'
 
 function App () {
   return (
-    <div className="bg-gray-800 h-screen text-white">
+    <>
+      <Header/>
       <Router>
         <Routes>
           <Route path='/' element={<HomePage/>}></Route>
         </Routes>
       </Router>
-    </div>
+    </>
   )
 }
 
