@@ -6,14 +6,16 @@ import { Header } from './Components/Header/Header'
 
 function App () {
   return (
-    <>
-      <Header/>
-      <Router>
-        <Routes>
-          <Route path='/' element={<HomePage/>}></Route>
-        </Routes>
-      </Router>
-    </>
+    <div className="h-screen text-white">
+      <Header className="bg-gray-800 h-36 text-center"/>
+      <main className="bg-gray-600 h-full flex">
+        <Router>
+          <Routes>
+            <Route path='/' element={<HomePage/>}></Route>
+          </Routes>
+        </Router>
+      </main>
+    </div>
   )
 }
 

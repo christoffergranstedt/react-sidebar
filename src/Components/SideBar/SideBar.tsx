@@ -1,8 +1,12 @@
 import React from 'react'
 
-export const SideBar: React.FC = () => {
+interface SideBarProps {
+  className?: string
+}
+
+export const SideBar: React.FC<SideBarProps> = ({ className }) => {
   return (
-    <>
-    </>
+    <nav className={`${className && className}`}>
+    </nav>
   )
 }

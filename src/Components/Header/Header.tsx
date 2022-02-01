@@ -1,9 +1,13 @@
 import React from 'react'
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  className?: string
+}
+
+export const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
-    <header className="h-36 bg-green-800 text-center pt-10">
-      <h1 className="font-semibold text-3xl text-white">React Sidebar App</h1>
+    <header className={`${className && className}`}>
+      <h1 className="font-semibold text-3xl pt-10">React Sidebar App</h1>
     </header>
   )
 }
