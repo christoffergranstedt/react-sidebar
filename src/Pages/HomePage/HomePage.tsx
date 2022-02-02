@@ -1,4 +1,5 @@
 import React from 'react'
+import { toast } from 'react-toastify'
 
 import { useRequest } from '../../Hooks/useRequest'
 import { PersonInfo } from '../../Interfaces/PersonInfo'
@@ -12,10 +13,14 @@ export const HomePage: React.FC = () => {
 
   React.useEffect(() => {
     const getSideBarItems = async () => {
-      if (!process.env.REACT_APP_API_URL) throw new Error('REACT_APP_API_URL needs to be provided as a environment variable')
-      const data = await sendRequest<PersonInfo[]>({ url: process.env.REACT_APP_API_URL, method: HTTPMethod.Get })
-      setPersonItems(data)
-      console.log(data)
+      try {
+        if (!process.env.REACT_APP_API_URL) throw new Error('REACT_APP_API_URL needs to be provided as a environment variable')
+        const data = await sendRequest<PersonInfo[]>({ url: process.env.REACT_APP_API_URL, method: HTTPMethod.Get })
+        setPersonItems(data)
+        console.log(data)
+      } catch (error) {
+        toast.error('There was an error. Please try again.')
+      }
     }
 
     getSideBarItems()

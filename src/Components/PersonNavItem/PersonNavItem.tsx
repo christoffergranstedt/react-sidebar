@@ -7,10 +7,14 @@ interface PersonNavItemProps {
   personInfo: PersonInfo
 }
 
-export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className, personInfo }) => {
+export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className = '', personInfo }) => {
+  const selectPersonNavItem = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.stopPropagation()
+  }
+
   return (
-    <div className={`${className && className}`}>
-      <Link to="#">{personInfo.name}</Link>
+    <div className={`${className}`}>
+      <Link to="#" onClick={selectPersonNavItem}>{personInfo.name}</Link>
       {personInfo.children.length > 0 && personInfo.children.map(person => (
         <PersonNavItem key={`sidebar-nav-${person.id}`} personInfo={person}/>
       ))}

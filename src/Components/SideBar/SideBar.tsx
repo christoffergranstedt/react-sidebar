@@ -7,9 +7,9 @@ interface SideBarProps {
   personItems: PersonInfo[]
 }
 
-export const SideBar: React.FC<SideBarProps> = ({ className, personItems }) => {
+export const SideBar: React.FC<SideBarProps> = ({ className = '', personItems }) => {
   return (
-    <nav className={`${className && className}`}>
+    <nav className={`${className}`}>
       {personItems.map(personInfo => (
         <PersonNavItem key={`sidebar-nav-${personInfo.id}`} personInfo={personInfo}/>
       ))}
