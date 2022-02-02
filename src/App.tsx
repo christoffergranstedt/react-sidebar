@@ -8,17 +8,17 @@ import { SideBar } from './Components/SideBar/SideBar'
 
 function App () {
   return (
-    <div className="h-screen text-white">
-      <Header className="bg-gray-800 h-36 text-center"/>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
-      <main className="bg-gray-600 h-full flex">
-        <Router>
-          <SideBar className="w-96 bg-red-400 h-full"/>
+    <div className="min-h-screen flex flex-col text-white">
+      <Router>
+        <Header className="bg-gray-800 h-36 w-full"/>
+        <main className="bg-gray-700 h-full flex flex-grow">
+          <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
+          <SideBar className="w-96 bg-gray-800 flex-grow"/>
           <Routes>
             <Route path='/' element={<HomePage/>}></Route>
           </Routes>
-        </Router>
-      </main>
+        </main>
+      </Router>
     </div>
   )
 }
