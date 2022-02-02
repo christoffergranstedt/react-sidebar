@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify'
 
 import { HomePage } from './Pages/HomePage/HomePage'
 import { Header } from './Components/Header/Header'
+import { SideBar } from './Components/SideBar/SideBar'
 
 function App () {
   return (
@@ -12,6 +13,7 @@ function App () {
       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover/>
       <main className="bg-gray-600 h-full flex">
         <Router>
+          <SideBar className="w-96 bg-red-400 h-full"/>
           <Routes>
             <Route path='/' element={<HomePage/>}></Route>
           </Routes>
