@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { HTTPMethod } from '../../Constants/HTTPMethod'
 import { useRequest } from '../../Hooks/useRequest'
 import { PersonInfo } from '../../Interfaces/PersonInfo'
@@ -19,10 +20,6 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
   const { persons, selectedId } = state
   const { sendRequest } = useRequest()
 
-  const isSelected = React.useCallback((id: string): boolean => {
-    return selectedId === id
-  }, [])
-
   const fetchAndSetPersons = React.useCallback(async (): Promise<void> => {
     if (!process.env.REACT_APP_API_URL) throw new Error('REACT_APP_API_URL needs to be provided as a environment variable')
 
@@ -37,7 +34,7 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
   }, [])
 
   return (
-    <PersonContext.Provider value={{ persons, fetchAndSetPersons, isSelected, setSelectedId }}>
+    <PersonContext.Provider value={{ persons, fetchAndSetPersons, selectedId, setSelectedId }}>
       {children}
     </PersonContext.Provider>
   )

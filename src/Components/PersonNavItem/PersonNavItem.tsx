@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { PersonContext } from '../../Contexts/Person/PersonContext'
 import { PersonInfo } from '../../Interfaces/PersonInfo'
 
 interface PersonNavItemProps {
@@ -8,8 +9,11 @@ interface PersonNavItemProps {
 }
 
 export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className = '', personInfo }) => {
+  const { setSelectedId } = React.useContext(PersonContext)
+
   const selectPersonNavItem = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.stopPropagation()
+    setSelectedId && setSelectedId(personInfo.id)
   }
 
   return (

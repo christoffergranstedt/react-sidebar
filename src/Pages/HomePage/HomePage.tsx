@@ -6,7 +6,7 @@ import { SideBar } from '../../Components/SideBar/SideBar'
 import { PersonContext } from '../../Contexts/Person/PersonContext'
 
 export const HomePage: React.FC = () => {
-  const { persons, fetchAndSetPersons } = React.useContext(PersonContext)
+  const { persons, fetchAndSetPersons, selectedId } = React.useContext(PersonContext)
 
   React.useEffect(() => {
     const getSideBarItems = async () => {
@@ -20,12 +20,19 @@ export const HomePage: React.FC = () => {
     getSideBarItems()
   }, [])
 
+  let displayMessage
+  if (selectedId) {
+    displayMessage = `The selected side bar person is id ${selectedId}`
+  } else {
+    displayMessage = 'There is no side bar person selected'
+  }
+
   return (
     <>
       <SideBar className="w-96 bg-red-400 h-full"/>
       <section className="w-full text-center">
         <PageHeading title="Main"/>
-        <p>To display clicked event</p>
+        <p>{displayMessage}</p>
       </section>
     </>
   )
