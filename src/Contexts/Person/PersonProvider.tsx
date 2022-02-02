@@ -8,7 +8,7 @@ import { PersonActionType, personReducer, PersonState } from './PersonReducer'
 
 const initialPersonState: PersonState = {
   persons: [],
-  selectedId: null
+  selectedPerson: null
 }
 
 interface PersonProviderProps {
@@ -17,7 +17,7 @@ interface PersonProviderProps {
 
 export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
   const [state, dispatch] = React.useReducer(personReducer, initialPersonState)
-  const { persons, selectedId } = state
+  const { persons, selectedPerson } = state
   const { sendRequest } = useRequest()
 
   const fetchAndSetPersons = React.useCallback(async (): Promise<void> => {
@@ -29,12 +29,12 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
     dispatch({ type: PersonActionType.SetSelctedPersons, payload: { persons: data } })
   }, [])
 
-  const setSelectedId = React.useCallback((id: string): void => {
-    dispatch({ type: PersonActionType.SetSelectedId, payload: { selectedId: id } })
+  const setSelectedPerson = React.useCallback((selectedPerson: PersonInfo): void => {
+    dispatch({ type: PersonActionType.setSelectedPerson, payload: { person: selectedPerson } })
   }, [])
 
   return (
-    <PersonContext.Provider value={{ persons, fetchAndSetPersons, selectedId, setSelectedId }}>
+    <PersonContext.Provider value={{ persons, fetchAndSetPersons, selectedPerson, setSelectedPerson }}>
       {children}
     </PersonContext.Provider>
   )

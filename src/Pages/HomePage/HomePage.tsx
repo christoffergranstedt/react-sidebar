@@ -6,7 +6,8 @@ import { SideBar } from '../../Components/SideBar/SideBar'
 import { PersonContext } from '../../Contexts/Person/PersonContext'
 
 export const HomePage: React.FC = () => {
-  const { persons, fetchAndSetPersons, selectedId } = React.useContext(PersonContext)
+  const { persons, fetchAndSetPersons, selectedPerson } = React.useContext(PersonContext)
+  const [displayMessage, setDisplayMessage] = React.useState<string>()
 
   React.useEffect(() => {
     const getSideBarItems = async () => {
@@ -20,12 +21,13 @@ export const HomePage: React.FC = () => {
     getSideBarItems()
   }, [])
 
-  let displayMessage
-  if (selectedId) {
-    displayMessage = `The selected side bar person is id ${selectedId}`
-  } else {
-    displayMessage = 'There is no side bar person selected'
-  }
+  React.useEffect(() => {
+    if (selectedPerson) {
+      setDisplayMessage(`The selected side bar person is "${selectedPerson.name}"`)
+    } else {
+      setDisplayMessage('Nothing is selected')
+    }
+  }, [selectedPerson])
 
   return (
     <>

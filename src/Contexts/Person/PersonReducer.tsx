@@ -2,12 +2,12 @@ import { PersonInfo } from '../../Interfaces/PersonInfo'
 
 export interface PersonState {
   persons: PersonInfo[]
-  selectedId: string | null
+  selectedPerson: PersonInfo | null
 }
 
 export enum PersonActionType {
   SetSelctedPersons,
-  SetSelectedId
+  setSelectedPerson
 }
 
 interface SetSelctedPersons {
@@ -15,12 +15,12 @@ interface SetSelctedPersons {
   payload: { persons: PersonInfo[] }
 }
 
-interface SetSelectedId {
-  type: PersonActionType.SetSelectedId
-  payload: { selectedId: string }
+interface setSelectedPerson {
+  type: PersonActionType.setSelectedPerson
+  payload: { person: PersonInfo }
 }
 
-type PersonActions = SetSelctedPersons | SetSelectedId
+type PersonActions = SetSelctedPersons | setSelectedPerson
 
 export const personReducer = (state: PersonState, action: PersonActions): PersonState => {
   switch (action.type) {
@@ -29,10 +29,10 @@ export const personReducer = (state: PersonState, action: PersonActions): Person
         ...state,
         persons: action.payload.persons
       }
-    case PersonActionType.SetSelectedId:
+    case PersonActionType.setSelectedPerson:
       return {
         ...state,
-        selectedId: action.payload.selectedId
+        selectedPerson: action.payload.person
       }
     default:
       return state

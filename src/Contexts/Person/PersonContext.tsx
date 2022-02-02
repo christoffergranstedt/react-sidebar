@@ -4,13 +4,13 @@ import { PersonInfo } from '../../Interfaces/PersonInfo'
 
 interface PersonContextProps {
   persons: PersonInfo[]
-  selectedId: string | null
+  selectedPerson: PersonInfo | null
   fetchAndSetPersons: () => Promise<void>
-  setSelectedId?: (id: string) => void
+  setSelectedPerson?: (person: PersonInfo) => void
 }
 
 export const PersonContext = React.createContext<PersonContextProps>({
   persons: [],
-  selectedId: null,
+  selectedPerson: null,
   fetchAndSetPersons: async () => {}
 })
