@@ -1,23 +1,17 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 
-import { useRequest } from '../../Hooks/useRequest'
-import { PersonInfo } from '../../Interfaces/PersonInfo'
 import { PageHeading } from '../../PageHeading/PageHeading'
 import { SideBar } from '../../Components/SideBar/SideBar'
-import { HTTPMethod } from '../../Constants/HTTPMethod'
+import { PersonContext } from '../../Contexts/Person/PersonContext'
 
 export const HomePage: React.FC = () => {
-  const { sendRequest } = useRequest()
-  const [personItems, setPersonItems] = React.useState<PersonInfo[]>([])
+  const { persons, fetchAndSetPersons } = React.useContext(PersonContext)
 
   React.useEffect(() => {
     const getSideBarItems = async () => {
       try {
-        if (!process.env.REACT_APP_API_URL) throw new Error('REACT_APP_API_URL needs to be provided as a environment variable')
-        const data = await sendRequest<PersonInfo[]>({ url: process.env.REACT_APP_API_URL, method: HTTPMethod.Get })
-        setPersonItems(data)
-        console.log(data)
+        if (!persons || persons.length === 0) await fetchAndSetPersons()
       } catch (error) {
         toast.error('There was an error. Please try again.')
       }
@@ -28,7 +22,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      <SideBar className="w-96 bg-red-400 h-full" personItems={personItems}/>
+      <SideBar className="w-96 bg-red-400 h-full"/>
       <section className="w-full text-center">
         <PageHeading title="Main"/>
         <p>To display clicked event</p>

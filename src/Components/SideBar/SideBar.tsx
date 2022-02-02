@@ -1,16 +1,17 @@
 import React from 'react'
-import { PersonInfo } from '../../Interfaces/PersonInfo'
+import { PersonContext } from '../../Contexts/Person/PersonContext'
 import { PersonNavItem } from '../PersonNavItem/PersonNavItem'
 
 interface SideBarProps {
   className?: string
-  personItems: PersonInfo[]
 }
 
-export const SideBar: React.FC<SideBarProps> = ({ className = '', personItems }) => {
+export const SideBar: React.FC<SideBarProps> = ({ className = '' }) => {
+  const { persons } = React.useContext(PersonContext)
+
   return (
     <nav className={`${className}`}>
-      {personItems.map(personInfo => (
+      {persons.map(personInfo => (
         <PersonNavItem key={`sidebar-nav-${personInfo.id}`} personInfo={personInfo}/>
       ))}
     </nav>
