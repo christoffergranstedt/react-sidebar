@@ -8,7 +8,8 @@ import { PersonActionType, personReducer, PersonState } from './PersonReducer'
 
 const initialPersonState: PersonState = {
   persons: [],
-  selectedPerson: null
+  selectedPerson: null,
+  isLoading: false
 }
 
 interface PersonProviderProps {
@@ -17,14 +18,16 @@ interface PersonProviderProps {
 
 export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
   const [state, dispatch] = React.useReducer(personReducer, initialPersonState)
-  const { persons, selectedPerson } = state
+  const { persons, selectedPerson, isLoading } = state
   const { sendRequest } = useRequest()
 
   const fetchAndSetPersons = React.useCallback(async (): Promise<void> => {
     const apiURL = process.env.REACT_APP_API_URL || 'https://61f5037b62f1e300173c3f8d.mockapi.io/node'
 
+    dispatch({ type: PersonActionType.setIsLoading, payload: { isLoading: true } })
     const data = await sendRequest<PersonInfo[]>({ url: apiURL, method: HTTPMethod.Get })
     if (!data || data.length === 0) throw new Error('No data was fetched')
+    dispatch({ type: PersonActionType.setIsLoading, payload: { isLoading: false } })
 
     dispatch({ type: PersonActionType.SetSelctedPersons, payload: { persons: data } })
   }, [])
@@ -34,7 +37,7 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
   }, [])
 
   return (
-    <PersonContext.Provider value={{ persons, fetchAndSetPersons, selectedPerson, setSelectedPerson }}>
+    <PersonContext.Provider value={{ persons, isLoading, fetchAndSetPersons, selectedPerson, setSelectedPerson }}>
       {children}
     </PersonContext.Provider>
   )

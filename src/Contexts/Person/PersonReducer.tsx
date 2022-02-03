@@ -3,11 +3,13 @@ import { PersonInfo } from '../../Interfaces/PersonInfo'
 export interface PersonState {
   persons: PersonInfo[]
   selectedPerson: PersonInfo | null
+  isLoading: boolean
 }
 
 export enum PersonActionType {
   SetSelctedPersons,
-  setSelectedPerson
+  setSelectedPerson,
+  setIsLoading
 }
 
 interface SetSelctedPersons {
@@ -20,7 +22,12 @@ interface setSelectedPerson {
   payload: { person: PersonInfo }
 }
 
-type PersonActions = SetSelctedPersons | setSelectedPerson
+interface setIsLoading {
+  type: PersonActionType.setIsLoading
+  payload: { isLoading: boolean }
+}
+
+type PersonActions = SetSelctedPersons | setSelectedPerson | setIsLoading
 
 export const personReducer = (state: PersonState, action: PersonActions): PersonState => {
   switch (action.type) {
@@ -33,6 +40,11 @@ export const personReducer = (state: PersonState, action: PersonActions): Person
       return {
         ...state,
         selectedPerson: action.payload.person
+      }
+    case PersonActionType.setIsLoading:
+      return {
+        ...state,
+        isLoading: action.payload.isLoading
       }
     default:
       return state

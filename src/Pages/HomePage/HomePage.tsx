@@ -1,6 +1,6 @@
 import React from 'react'
 import { toast } from 'react-toastify'
-import { usePersonContext } from '../../Contexts/Person/PersonContext'
+import { usePersonContext } from '../../Hooks/usePersonContext'
 
 export const HomePage: React.FC = () => {
   const { persons, fetchAndSetPersons, selectedPerson } = usePersonContext()
