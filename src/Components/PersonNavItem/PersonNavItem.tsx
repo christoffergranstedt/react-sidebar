@@ -26,11 +26,12 @@ export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className = '', pe
       <Link to="#" onClick={selectPersonNavItem} className="hover:text-gray-200 pl-2">{personInfo.name}</Link>
       {hasChildrens && <Link to="#" className="text-yellow-600 absolute right-2 cursor-pointer hover:text-yellow-400 font-bold inline-block" onClick={() => setIsExpanded(!isExpanded)}>{!isExpanded ? <span>&#8910;</span> : <span>&#8911;</span>} </Link>}
     </div>
-      {shouldShowChildrens && personInfo.children.map(person => (
-        <div key={`sidebar-nav-${person.id}`} className="pl-4">
-          <PersonNavItem className="my-1" personInfo={person}/>
-        </div>
-      ))}
+
+    {shouldShowChildrens && personInfo.children.map(person => (
+      <div key={`sidebar-nav-${person.id}`} className="pl-4">
+        <PersonNavItem className="my-1" personInfo={person}/>
+      </div>
+    ))}
     </>
   )
 }

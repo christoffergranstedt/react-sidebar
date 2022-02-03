@@ -26,8 +26,9 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
 
     dispatch({ type: PersonActionType.setIsLoading, payload: { isLoading: true } })
     const data = await sendRequest<PersonInfo[]>({ url: apiURL, method: HTTPMethod.Get })
-    if (!data || data.length === 0) throw new Error('No data was fetched')
     dispatch({ type: PersonActionType.setIsLoading, payload: { isLoading: false } })
+
+    if (!data || data.length === 0) throw new Error('No data was fetched')
 
     dispatch({ type: PersonActionType.SetSelctedPersons, payload: { persons: data } })
   }, [])
