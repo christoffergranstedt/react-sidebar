@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { PersonContext } from '../../Contexts/Person/PersonContext'
+import { usePersonContext } from '../../Contexts/Person/PersonContext'
 import { PersonInfo } from '../../Interfaces/PersonInfo'
 
 interface PersonNavItemProps {
@@ -9,7 +9,7 @@ interface PersonNavItemProps {
 }
 
 export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className = '', personInfo }) => {
-  const { setSelectedPerson, selectedPerson } = React.useContext(PersonContext)
+  const { setSelectedPerson, selectedPerson } = usePersonContext()
   const [isExpanded, setIsExpanded] = React.useState<boolean>(false)
 
   const selectPersonNavItem = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -17,17 +17,18 @@ export const PersonNavItem: React.FC<PersonNavItemProps> = ({ className = '', pe
     setSelectedPerson && setSelectedPerson(personInfo)
   }
 
-  const showChildrens = isExpanded && personInfo.children.length > 0
+  const hasChildrens = personInfo.children.length > 0
+  const shouldShowChildrens = isExpanded && hasChildrens
 
   return (
     <>
-    <div className={`${className} ${selectedPerson?.id === personInfo.id && 'bg-gray-600'} rounded-sm relative py-4 hover:bg-gray-600`}>
+    <div className={`${className} ${selectedPerson?.id === personInfo.id && 'bg-gray-600'} rounded-md relative py-4 hover:bg-gray-600`}>
       <Link to="#" onClick={selectPersonNavItem} className="hover:text-gray-200 pl-2">{personInfo.name}</Link>
-      {personInfo.children.length > 0 && <div className="text-yellow-600 absolute right-2 cursor-pointer hover:text-yellow-400 font-bold inline-block" onClick={() => setIsExpanded(!isExpanded)}>{!isExpanded ? <span>&#8910;</span> : <span>&#8911;</span>} </div>}
+      {hasChildrens && <Link to="#" className="text-yellow-600 absolute right-2 cursor-pointer hover:text-yellow-400 font-bold inline-block" onClick={() => setIsExpanded(!isExpanded)}>{!isExpanded ? <span>&#8910;</span> : <span>&#8911;</span>} </Link>}
     </div>
-      {showChildrens && personInfo.children.map(person => (
+      {shouldShowChildrens && personInfo.children.map(person => (
         <div key={`sidebar-nav-${person.id}`} className="pl-4">
-          <PersonNavItem className="my-2" personInfo={person}/>
+          <PersonNavItem className="my-1" personInfo={person}/>
         </div>
       ))}
     </>

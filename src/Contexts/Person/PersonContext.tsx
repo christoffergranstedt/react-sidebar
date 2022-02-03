@@ -14,3 +14,5 @@ export const PersonContext = React.createContext<PersonContextProps>({
   selectedPerson: null,
   fetchAndSetPersons: async () => {}
 })
+
+export const usePersonContext = () => React.useContext(PersonContext)

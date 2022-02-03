@@ -1,11 +1,9 @@
 import React from 'react'
 import { toast } from 'react-toastify'
-
-import { PageHeading } from '../../PageHeading/PageHeading'
-import { PersonContext } from '../../Contexts/Person/PersonContext'
+import { usePersonContext } from '../../Contexts/Person/PersonContext'
 
 export const HomePage: React.FC = () => {
-  const { persons, fetchAndSetPersons, selectedPerson } = React.useContext(PersonContext)
+  const { persons, fetchAndSetPersons, selectedPerson } = usePersonContext()
   const [selectedPersonMessage, setSelectedPersonMessage] = React.useState<string>()
 
   React.useEffect(() => {
@@ -13,6 +11,7 @@ export const HomePage: React.FC = () => {
       try {
         if (!persons || persons.length === 0) await fetchAndSetPersons()
       } catch (error) {
+        console.log(error)
         toast.error('There was an error. Please try again.')
       }
     }
@@ -30,9 +29,8 @@ export const HomePage: React.FC = () => {
 
   return (
     <>
-      <section className="w-full text-center">
-        <PageHeading title="Main"/>
-        <p className="text-3xl">{selectedPersonMessage}</p>
+      <section className="w-full flex flex-col justify-center items-center">
+        <p className="text-3xl text-gray-800">{selectedPersonMessage}</p>
       </section>
     </>
   )
