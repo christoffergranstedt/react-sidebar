@@ -17,7 +17,7 @@ export const HomePage: React.FC = () => {
     }
 
     getSideBarItems()
-  }, [])
+  }, [persons, fetchAndSetPersons])
 
   React.useEffect(() => {
     if (selectedPerson) {

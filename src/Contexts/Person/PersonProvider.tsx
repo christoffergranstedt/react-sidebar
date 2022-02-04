@@ -31,7 +31,7 @@ export const PersonProvider: React.FC<PersonProviderProps> = ({ children }) => {
     if (!data || data.length === 0) throw new Error('No data was fetched')
 
     dispatch({ type: PersonActionType.SetSelctedPersons, payload: { persons: data } })
-  }, [])
+  }, [sendRequest])
 
   const setSelectedPerson = React.useCallback((selectedPerson: PersonInfo): void => {
     dispatch({ type: PersonActionType.setSelectedPerson, payload: { person: selectedPerson } })
